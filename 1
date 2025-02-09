@@ -1,0 +1,29 @@
+<template>
+  <div>
+    <button @click="prevMonth">Back</button>
+    <span>{{ formattedDate }}</span>
+    <button @click="nextMonth">Next</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue';
+
+const currentDate = ref(new Date(2025, 11, 1));
+
+const formattedDate = computed(() => {
+  const month = String(currentDate.value.getMonth() + 1).padStart(2, '0');
+  const year = currentDate.value.getFullYear();
+  return `${month}/${year}`;
+});
+
+const prevMonth = () => {
+  currentDate.value.setMonth(currentDate.value.getMonth() - 1);
+  currentDate.value = new Date(currentDate.value);
+};
+
+const nextMonth = () => {
+  currentDate.value.setMonth(currentDate.value.getMonth() + 1);
+  currentDate.value = new Date(currentDate.value);
+};
+</script>
